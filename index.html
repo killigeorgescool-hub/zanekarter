@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zane Karter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #111, #000);
+  color:#fff;
+}
+
+nav {
+  position:fixed;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  z-index:1000;
+}
+
+nav a {
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:2px;
+}
+
+header {
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  letter-spacing:8px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.subtitle {
+  color:#aaa;
+  margin-top:10px;
+}
+
+section {
+  padding:100px 20px;
+  text-align:center;
+}
+
+h2 {
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.bio {
+  max-width:600px;
+  margin:auto;
+  color:#ccc;
+}
+
+footer {
+  padding:50px;
+  text-align:center;
+  color:#444;
+}
+
+.fade {
+  opacity:0;
+  transform:translateY(20px);
+  transition:1s;
+}
+
+.fade.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+a:hover {
+  opacity:0.7;
+}
+
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#loader .loader-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f7f2e8;
+  text-align: center;
+  animation: pulse 1.8s infinite;
+  text-shadow: 0 0 30px rgba(247,242,232,0.25);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.65; }
+  50% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.65; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+  <div class="loader-title">Zane Karter</div>
+</div>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#music">Music</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header id="home">
+  <h1>ZANE KARTER</h1>
+  <p class="subtitle">New wave energy</p>
+</header>
+
+<section id="about" class="fade">
+  <h2>About</h2>
+  <p class="bio">
+    Independent artist and songwriter Zane Karter navigates the complexities of the human experience through a lens of dark R&amp;B and soul. His music is a reflection of a semi-chaotic world, blending somber melodies with atmospheric production to create something deeply resonant. Honest, moody, and ethereal - this is the sound of the dark side of soul.
+  </p>
+</section>
+
+<section id="music" class="fade">
+  <h2>Music</h2>
+  <p>First release coming soon.</p>
+
+  <div style="margin-top:20px;">
+    <a href="https://selar.com/5k69210831" target="_blank" style="border:1px solid white; padding:10px 20px; text-decoration:none;">
+      PRE-SAVE
+    </a>
+  </div>
+</section>
+
+<section id="contact" class="fade">
+  <h2>Contact</h2>
+
+  <p style="margin:10px 0;">Email: zainingincarter@gmail.com</p>
+
+  <a href="https://www.instagram.com/officialzanecarter" target="_blank">
+    Instagram
+  </a>
+</section>
+
+<footer>
+  <p>(C) 2026 Zane Karter</p>
+</footer>
+
+<script>
+const faders = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  faders.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      el.classList.add('visible');
+    }
+  });
+});
+</script>
+
+<script>
+window.addEventListener("load", function(){
+  const loader = document.getElementById("loader");
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.transition = "1s";
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 1000);
+  }, 2000);
+});
+</script>
+
+</body>
+</html>
