@@ -10,7 +10,6 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-
 <style>
 body {
   margin:0;
@@ -72,6 +71,149 @@ h2 {
   max-width:600px;
   margin:auto;
   color:#ccc;
+}
+
+.image-carousel {
+  width:min(100%, 760px);
+  margin:40px auto 0;
+  position:relative;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+
+.image-stack {
+  min-height:540px;
+  position:relative;
+  cursor:pointer;
+}
+
+.image-stack img {
+  width:min(72%, 430px);
+  aspect-ratio:4 / 5;
+  object-fit:cover;
+  display:block;
+  position:absolute;
+  top:0;
+  left:50%;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.14);
+  box-shadow:0 20px 50px rgba(0,0,0,0.45);
+  opacity:0;
+  pointer-events:none;
+  transition:transform 0.55s ease, opacity 0.55s ease, top 0.55s ease;
+  user-select:none;
+  -webkit-user-drag:none;
+  -webkit-touch-callout:none;
+}
+
+.image-stack img.is-active {
+  top:35px;
+  transform:translateX(-50%) rotate(0deg);
+  opacity:1;
+  z-index:3;
+}
+
+.image-stack img.is-prev {
+  top:70px;
+  transform:translateX(-96%) scale(0.86) rotate(-5deg);
+  opacity:0.55;
+  z-index:2;
+}
+
+.image-stack img.is-next {
+  top:70px;
+  transform:translateX(-4%) scale(0.86) rotate(5deg);
+  opacity:0.55;
+  z-index:2;
+}
+
+.image-nav {
+  width:44px;
+  height:44px;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:50%;
+  background:rgba(0,0,0,0.5);
+  color:#fff;
+  font-size:28px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:5;
+}
+
+.image-nav:hover {
+  background:rgba(255,255,255,0.14);
+}
+
+.image-nav.prev {
+  left:12px;
+}
+
+.image-nav.next {
+  right:12px;
+}
+
+.image-dots {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:18px;
+}
+
+.image-dots button {
+  width:9px;
+  height:9px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,0.32);
+  cursor:pointer;
+}
+
+.image-dots button.is-active {
+  background:#fff;
+}
+
+@media (max-width:700px) {
+  nav {
+    gap:16px;
+    padding:16px 10px;
+    flex-wrap:wrap;
+  }
+
+  .image-stack {
+    min-height:455px;
+  }
+
+  .image-stack img {
+    width:78%;
+  }
+
+  .image-stack img.is-active {
+    top:18px;
+    transform:translateX(-50%) rotate(0deg);
+  }
+
+  .image-stack img.is-prev {
+    top:62px;
+    transform:translateX(-90%) scale(0.84) rotate(-4deg);
+  }
+
+  .image-stack img.is-next {
+    top:62px;
+    transform:translateX(-10%) scale(0.84) rotate(4deg);
+  }
+
+  .image-nav {
+    width:40px;
+    height:40px;
+    font-size:24px;
+  }
 }
 
 footer {
@@ -137,6 +279,7 @@ a:hover {
 <nav>
   <a href="#home">Home</a>
   <a href="#about">About</a>
+  <a href="#images">Images</a>
   <a href="#music">Music</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -151,6 +294,22 @@ a:hover {
   <p class="bio">
     Independent artist and songwriter Zane Karter navigates the complexities of the human experience through a lens of dark R&amp;B and soul. His music is a reflection of a semi-chaotic world, blending somber melodies with atmospheric production to create something deeply resonant. Honest, moody, and ethereal - this is the sound of the dark side of soul.
   </p>
+</section>
+
+<section id="images" class="fade">
+  <h2>Images</h2>
+  <div class="image-carousel" aria-label="Galerie photo">
+    <button class="image-nav prev" type="button" aria-label="Image precedente">&lsaquo;</button>
+    <div class="image-stack">
+      <img class="protected-image is-active" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538709/dfuns_2026-06-21_143315682CA390D78A_g1taxd.jpg" alt="Zane Karter visual 1" draggable="false">
+      <img class="protected-image is-next" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538714/dfuns_2026-06-21_143637AD545152EE65_t791lu.jpg" alt="Zane Karter visual 2" draggable="false">
+      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538361/dfuns_2026-06-21_1432475455DFDAFDD9_rvgxhu.jpg" alt="Zane Karter visual 3" draggable="false">
+      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538704/dfuns_2026-06-21_143638ED9F348B0889_gzc6q2.jpg" alt="Zane Karter visual 4" draggable="false">
+      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538713/dfuns_2026-06-21_1433159F52A171454D_lfckpj.jpg" alt="Zane Karter visual 5" draggable="false">
+    </div>
+    <button class="image-nav next" type="button" aria-label="Image suivante">&rsaquo;</button>
+    <div class="image-dots" aria-label="Choisir une image"></div>
+  </div>
 </section>
 
 <section id="music" class="fade">
@@ -192,6 +351,78 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+</script>
+
+<script>
+document.querySelectorAll('.protected-image').forEach(image => {
+  image.addEventListener('contextmenu', event => event.preventDefault());
+  image.addEventListener('dragstart', event => event.preventDefault());
+});
+</script>
+
+<script>
+const carousel = document.querySelector('.image-carousel');
+const stack = document.querySelector('.image-stack');
+const images = Array.from(document.querySelectorAll('.image-stack img'));
+const dots = document.querySelector('.image-dots');
+let activeImage = 0;
+let touchStartX = 0;
+let slideDirection = 1;
+
+function showImage(index, direction = 1) {
+  slideDirection = direction;
+  activeImage = (index + images.length) % images.length;
+
+  images.forEach((image, imageIndex) => {
+    image.classList.remove('is-active', 'is-prev', 'is-next');
+
+    if (imageIndex === activeImage) {
+      image.classList.add('is-active');
+    } else if (images.length === 2) {
+      image.classList.add(slideDirection > 0 ? 'is-next' : 'is-prev');
+    } else if (imageIndex === (activeImage - 1 + images.length) % images.length) {
+      image.classList.add('is-prev');
+    } else if (imageIndex === (activeImage + 1) % images.length) {
+      image.classList.add('is-next');
+    }
+  });
+
+  dots.querySelectorAll('button').forEach((dot, dotIndex) => {
+    dot.classList.toggle('is-active', dotIndex === activeImage);
+  });
+}
+
+images.forEach((image, index) => {
+  const dot = document.createElement('button');
+  dot.type = 'button';
+  dot.setAttribute('aria-label', `Afficher l'image ${index + 1}`);
+  dot.addEventListener('click', () => showImage(index));
+  dots.appendChild(dot);
+});
+
+carousel.querySelector('.image-nav.prev').addEventListener('click', () => showImage(activeImage - 1, -1));
+carousel.querySelector('.image-nav.next').addEventListener('click', () => showImage(activeImage + 1, 1));
+
+stack.addEventListener('click', event => {
+  const stackBox = stack.getBoundingClientRect();
+  const direction = event.clientX - stackBox.left > stackBox.width / 2 ? 1 : -1;
+  showImage(activeImage + direction, direction);
+});
+
+stack.addEventListener('touchstart', event => {
+  touchStartX = event.touches[0].clientX;
+}, { passive:true });
+
+stack.addEventListener('touchend', event => {
+  const swipeDistance = event.changedTouches[0].clientX - touchStartX;
+
+  if (Math.abs(swipeDistance) > 45) {
+    const direction = swipeDistance < 0 ? 1 : -1;
+    showImage(activeImage + direction, direction);
+  }
+});
+
+showImage(activeImage);
 </script>
 
 <script>
