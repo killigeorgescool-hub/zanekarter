@@ -254,16 +254,16 @@
 
     .media-shell {
       position: relative;
-      min-height: 380px;
       overflow: hidden;
-      background: #111;
+      background: linear-gradient(180deg, #111 0%, #080808 100%);
+      min-height: 340px;
     }
 
     .media-shell::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(17, 17, 17, 0.08) 0%, rgba(17, 17, 17, 0.18) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
       pointer-events: none;
     }
 
@@ -353,8 +353,25 @@
         padding-right: 48px;
       }
 
+      .memory-feed {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .memory-card:nth-child(even) {
+        transform: translateY(0);
+      }
+
+      .memory-card {
+        border-radius: 22px;
+      }
+
+      .media-shell {
+        min-height: 260px;
+      }
+
       .memory-card-body {
-        padding: 18px 18px 20px;
+        padding: 14px 16px 18px;
       }
     }
 
@@ -481,8 +498,8 @@
 
         <article class="memory-card">
           <div class="media-shell">
-            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
-              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782594946/IMG_8724_mxv7qm.mov" type="video/mp4">
+            <video class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782594946/IMG_8724_mxv7qm.mov" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source type="video/mp4">
               Your browser does not support embedded video.
             </video>
           </div>
@@ -520,8 +537,8 @@
 
         <article class="memory-card">
           <div class="media-shell">
-            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
-              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595009/IMG_4948_eiumrr.mov" type="video/mp4">
+            <video class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595009/IMG_4948_eiumrr.mov" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source type="video/mp4">
               Your browser does not support embedded video.
             </video>
           </div>
@@ -577,8 +594,8 @@
 
         <article class="memory-card">
           <div class="media-shell">
-            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
-              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595018/IMG_6359_fm9tii.mov" type="video/mp4">
+            <video class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595018/IMG_6359_fm9tii.mov" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source type="video/mp4">
               Your browser does not support embedded video.
             </video>
           </div>
@@ -670,9 +687,9 @@
 
     const loadMedia = (element) => {
       if (element.tagName.toLowerCase() === 'video') {
-        const source = element.querySelector('source[data-src]');
+        const source = element.querySelector('source');
         if (source) {
-          source.src = source.dataset.src;
+          source.src = element.dataset.src;
           element.load();
           element.play().catch(() => {});
         }
