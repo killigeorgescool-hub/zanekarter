@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,7 @@ body {
   background: radial-gradient(circle at top, #111, #000);
   color:#fff;
 }
+
 
 nav {
   position:fixed;
@@ -430,6 +431,91 @@ h2 {
   background:#fff;
 }
 
+.visually-hidden {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+.memory-gate {
+  margin:46px auto 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  max-width:720px;
+}
+
+.memory-trigger {
+  border:none;
+  background:transparent;
+  color:#f7f2e8;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 0;
+}
+
+.memory-trigger:hover,
+.memory-trigger:focus-visible {
+  transform:translateY(-3px);
+  box-shadow:0 20px 44px rgba(255,255,255,0.08);
+  outline:none;
+}
+
+.memory-trigger svg {
+  width:72px;
+  height:72px;
+  filter:drop-shadow(0 0 18px rgba(255,255,255,0.16));
+}
+
+.memory-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(255,255,255,0.16));
+}
+
+.memory-label {
+  max-width:300px;
+  text-align:left;
+  user-select:none;
+}
+
+.memory-title {
+  display:block;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:clamp(1.1rem, 3vw, 1.7rem);
+  font-weight:700;
+  color:#fff;
+}
+
+.memory-subtitle {
+  display:block;
+  margin-top:8px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  color:#b8b8b8;
+}
+
+.memory-note {
+  margin-top:12px;
+  color:#d6d6d6;
+  font-size:13px;
+  line-height:1.6;
+}
+
 @media (max-width:700px) {
   nav {
     gap:16px;
@@ -484,6 +570,20 @@ h2 {
 
   .player-main {
     align-items:center;
+  }
+
+  .memory-gate {
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .memory-label {
+    text-align:center;
+  }
+
+  .memory-trigger {
+    width:104px;
+    height:104px;
   }
 }
 
@@ -580,6 +680,17 @@ a:hover {
     </div>
     <button class="image-nav next" type="button" aria-label="Image suivante">&rsaquo;</button>
     <div class="image-dots" aria-label="Choisir une image"></div>
+  </div>
+
+  <div class="memory-gate">
+    <a class="memory-trigger" href="killi-memory.html" aria-label="Open Killi Memory">
+      <span class="visually-hidden">Killi Memory</span>
+      <img src="https://img.icons8.com/stickers/100/brain.png" alt="Brain icon" class="memory-icon">
+    </a>
+    <div class="memory-label">
+      <span class="memory-title">Killi Memory</span>
+      <span class="memory-subtitle">Private archive</span>
+    </div>
   </div>
 </section>
 

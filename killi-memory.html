@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Killi Memory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      color: #111;
+      background: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #111;
+    }
+
+    body, input, button {
+      font: inherit;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px 24px 40px;
+      text-align: center;
+      background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
+    }
+
+    .brand-bar {
+      width: min(100%, 1200px);
+      margin: 0 auto 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-bar a {
+      color: #111;
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .brand-bar a:hover {
+      opacity: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #111;
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .subtitle {
+      margin: 14px auto 0;
+      max-width: 640px;
+      color: #222;
+      font-size: clamp(1rem, 1.2vw, 1.05rem);
+      line-height: 1.55;
+      letter-spacing: 0.12em;
+      text-transform: none;
+      opacity: 0.92;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      font-style: italic;
+    }
+
+    .subtitle strong {
+      color: #111;
+      font-weight: 600;
+    }
+
+    .lock-panel {
+      width: min(100%, 520px);
+      margin: 36px auto 0;
+      padding: 32px;
+      border: 1px solid #e1e1e1;
+      border-radius: 24px;
+      background: #fcfcfc;
+      box-shadow: 0 24px 80px rgba(17, 17, 17, 0.08);
+      text-align: left;
+    }
+
+    .lock-panel h2 {
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .lock-panel p {
+      margin: 0 0 22px;
+      color: #636363;
+      line-height: 1.7;
+    }
+
+    .field-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .field-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      color: #444;
+      text-transform: uppercase;
+    }
+
+    .field-group input {
+      width: 100%;
+      min-height: 54px;
+      padding: 0 52px 0 16px;
+      border: 1px solid #d7d7d7;
+      border-radius: 14px;
+      background: #fff;
+      color: #111;
+    }
+
+    .toggle-visibility {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #6e6e6e;
+      border-radius: 50%;
+    }
+
+    .toggle-visibility:hover,
+    .toggle-visibility:focus-visible {
+      background: rgba(17, 17, 17, 0.05);
+      outline: none;
+      color: #111;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .button-group button {
+      flex: 1 1 170px;
+      min-height: 52px;
+      border: 1px solid #111;
+      border-radius: 14px;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button-group button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(17, 17, 17, 0.12);
+    }
+
+    .button-group button.secondary {
+      background: #fff;
+      color: #111;
+    }
+
+    .button-group button.secondary:hover {
+      background: #f4f4f4;
+    }
+
+    .error-message {
+      margin-top: 12px;
+      min-height: 18px;
+      color: #c13b3b;
+      font-size: 0.95rem;
+    }
+
+    .memory-content {
+      margin: 36px auto 0;
+      max-width: 760px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .memory-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .memory-content h3 {
+      margin: 0 0 18px;
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+    }
+
+    .memory-content p {
+      margin: 0 0 16px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .memory-feed {
+      margin: 30px 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    .memory-card {
+      border-radius: 28px;
+      overflow: hidden;
+      background: #111;
+      border: 1px solid rgba(17, 17, 17, 0.12);
+      box-shadow: 0 28px 90px rgba(17, 17, 17, 0.12);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .memory-card:nth-child(even) {
+      transform: translateY(20px);
+    }
+
+    .memory-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 36px 110px rgba(17, 17, 17, 0.16);
+    }
+
+    .media-shell {
+      position: relative;
+      min-height: 380px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .media-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(17, 17, 17, 0.08) 0%, rgba(17, 17, 17, 0.18) 100%);
+      pointer-events: none;
+    }
+
+    .memory-card img,
+    .memory-card video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(1.05);
+      transition: transform 0.35s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .memory-card:hover img,
+    .memory-card:hover video {
+      transform: scale(1.02);
+    }
+
+    .memory-card video {
+      background: #000;
+    }
+
+    .memory-card-body {
+      padding: 22px 24px 24px;
+    }
+
+    .memory-card-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      color: #777;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .memory-card-title {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      color: #111;
+    }
+
+    .memory-card-text {
+      margin: 0;
+      color: #444;
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+
+    .memory-card-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .memory-tag {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.04);
+      color: #333;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 640px) {
+      .brand-bar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .lock-panel {
+        padding: 24px;
+      }
+
+      .field-group input {
+        padding-right: 48px;
+      }
+
+      .memory-card-body {
+        padding: 18px 18px 20px;
+      }
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader .loader-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(3rem, 12vw, 8rem);
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #f7f2e8;
+      text-align: center;
+      animation: pulse 1.8s infinite;
+      text-shadow: 0 0 30px rgba(247,242,232,0.25);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.65; }
+      50% { transform: scale(1.04); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.65; }
+    }
+
+    @media (max-width: 640px) {
+      .brand-bar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .lock-panel {
+        padding: 24px;
+      }
+
+      .field-group input {
+        padding-right: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="brand-bar">
+      <div>
+        <span style="font-size:0.9rem; letter-spacing:0.18em; color:#9a9a9a; text-transform:uppercase;">Killi Memory</span>
+      </div>
+      <a href="index.html">Back to site</a>
+    </div>
+
+    <header>
+      <h1>Killi Memory</h1>
+      <p class="subtitle">Welcome to Killi Memory, the memory of Killi. This place is a cemetery. Every echo of the past is buried here. What your eyes see, never your mouth speak.</p>
+    </header>
+
+    <div class="lock-panel" aria-labelledby="lock-heading">
+      <h2 id="lock-heading">Private access</h2>
+      <p>Authorized access only. Enter the password to continue.</p>
+
+      <div class="field-group">
+        <label for="password-input">Password</label>
+        <input id="password-input" type="password" autocomplete="off" placeholder="Enter password">
+        <button class="toggle-visibility" type="button" aria-label="Show password">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </button>
+      </div>
+
+      <div class="button-group">
+        <button id="unlock-button" type="button">Unlock</button>
+        <button id="reset-button" type="button" class="secondary">Clear</button>
+      </div>
+
+      <div class="error-message" id="error-message" aria-live="polite"></div>
+    </div>
+
+    <section class="memory-content" id="memory-content" aria-live="polite">
+      <h3>Killi Memory unlocked</h3>
+      <p>Private archive contents are revealed here after successful authentication.</p>
+      <div class="memory-feed">
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782594935/IMG_2101_nzonh6.jpg" alt="Killi Memory image 1" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782594935/IMG_2088_hm7oug.jpg" alt="Killi Memory image 2" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782594935/IMG_2088_hm7oug.jpg" alt="Killi Memory image 3" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594934/IMG_2080_de4bmb.heic" alt="Killi Memory image 4" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594932/IMG_2126_un86pn.heic" alt="Killi Memory image 5" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594933/IMG_1999_eskbek.heic" alt="Killi Memory image 6" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782594946/IMG_8724_mxv7qm.mov" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594933/IMG_1737_n6k6ce.heic" alt="Killi Memory image 7" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594933/IMG_4411_a2l9pw.heic" alt="Killi Memory image 8" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594939/IMG_4927_ejqbk8.heic" alt="Killi Memory image 9" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594936/IMG_4913_kzg6ob.heic" alt="Killi Memory image 10" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594936/IMG_4926_flaozi.heic" alt="Killi Memory image 11" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595009/IMG_4948_eiumrr.mov" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594943/IMG_4930_zdvrr9.heic" alt="Killi Memory image 12" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594932/IMG_0678_lr1jmy.heic" alt="Killi Memory image 13" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594935/IMG_0711_gzdsee.heic" alt="Killi Memory image 14" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594939/IMG_5672_ry8un1.heic" alt="Killi Memory image 15" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594931/IMG_0681_qqxnvt.heic" alt="Killi Memory image 16" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782594958/IMG_8684_nkpghq.jpg" alt="Killi Memory image 17" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594951/IMG_7338_qlkr44.heic" alt="Killi Memory image 18" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594937/IMG_2001_zztg4b.heic" alt="Killi Memory image 19" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <video class="gallery-media" muted loop playsinline preload="none" controlsList="nodownload nofullscreen noremoteplayback" draggable="false" oncontextmenu="return false;">
+              <source data-src="https://res.cloudinary.com/deuwnhuwf/video/upload/f_mp4/v1782595018/IMG_6359_fm9tii.mov" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </article>
+
+        <article class="memory-card">
+          <div class="media-shell">
+            <img class="gallery-media" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_jpg/v1782594934/IMG_2080_de4bmb.heic" alt="Killi Memory image 20" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div id="loader">
+    <div class="loader-title">memory</div>
+  </div>
+
+  <script>
+    const correctPassword = 'PureHeart';
+    const passwordInput = document.getElementById('password-input');
+    const unlockButton = document.getElementById('unlock-button');
+    const resetButton = document.getElementById('reset-button');
+    const errorMessage = document.getElementById('error-message');
+    const contentSection = document.getElementById('memory-content');
+    const lockPanel = document.querySelector('.lock-panel');
+    const toggleVisibility = document.querySelector('.toggle-visibility');
+
+    const setMessage = (message) => {
+      errorMessage.textContent = message;
+    };
+
+    const showContent = () => {
+      lockPanel.remove();
+      contentSection.classList.add('visible');
+      setMessage('Access granted.');
+      errorMessage.style.color = '#1a7b14';
+    };
+
+    const hideContent = () => {
+      contentSection.classList.remove('visible');
+      errorMessage.style.color = '#c13b3b';
+    };
+
+    const resetState = () => {
+      if (lockPanel) {
+        lockPanel.style.display = 'block';
+      }
+      contentSection.classList.remove('visible');
+      setMessage('');
+      passwordInput.type = 'password';
+      toggleVisibility.setAttribute('aria-label', 'Show password');
+    };
+
+    unlockButton.addEventListener('click', () => {
+      const value = passwordInput.value.trim();
+      if (value === correctPassword) {
+        showContent();
+      } else {
+        hideContent();
+        setMessage('Incorrect password.');
+        passwordInput.focus();
+      }
+    });
+
+    resetButton.addEventListener('click', () => {
+      passwordInput.value = '';
+      resetState();
+      passwordInput.focus();
+    });
+
+    passwordInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        unlockButton.click();
+      }
+    });
+
+    toggleVisibility.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      toggleVisibility.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+    });
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '200px 0px',
+      threshold: 0.1,
+    };
+
+    const loadMedia = (element) => {
+      if (element.tagName.toLowerCase() === 'video') {
+        const source = element.querySelector('source[data-src]');
+        if (source) {
+          source.src = source.dataset.src;
+          element.load();
+          element.play().catch(() => {});
+        }
+      } else {
+        element.src = element.dataset.src;
+      }
+    };
+
+    const mediaObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const element = entry.target;
+        if (!element.dataset.src) {
+          observer.unobserve(element);
+          return;
+        }
+
+        loadMedia(element);
+        element.removeAttribute('data-src');
+        observer.unobserve(element);
+      });
+    }, observerOptions);
+
+    const observeMedia = () => {
+      document.querySelectorAll('[data-src]').forEach((element) => {
+        mediaObserver.observe(element);
+      });
+    };
+
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      const lockSection = document.querySelector('.lock-panel');
+
+      resetState();
+      passwordInput.value = '';
+      observeMedia();
+
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.transition = '1s';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 1000);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
