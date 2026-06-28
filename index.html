@@ -704,7 +704,7 @@ a:hover {
     </a>
   </div>
 
-  <div class="audio-player" data-audio-src="https://res.cloudinary.com/deuwnhuwf/video/upload/v1782567630/thinking_bout_mine_remastered_2_qyapep.mp3">
+  <div class="audio-player" data-soundcloud-url="https://on.soundcloud.com/kwKJc9oik8HoHRyu1I">
     <img class="album-mark protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782571316/soundcloud_cover_pumudw.png" alt="Thinking'bout mine cover" draggable="false">
     <div class="track-details">
       <h3>Thinking&#39;bout mine</h3>
@@ -720,7 +720,7 @@ a:hover {
           <input class="player-progress" type="range" min="0" max="100" value="0" aria-label="Track progress">
           <div class="player-time">
             <span class="current-time">0:00</span>
-            <span class="duration-time">1:50</span>
+            <span class="duration-time">0:00</span>
           </div>
         </div>
       </div>
@@ -729,10 +729,10 @@ a:hover {
         <span></span><span></span><span></span><span></span>
       </div>
     </div>
-    <audio preload="metadata" src="https://res.cloudinary.com/deuwnhuwf/video/upload/v1782567630/thinking_bout_mine_remastered_2_qyapep.mp3"></audio>
+    <iframe id="soundcloud-widget" title="SoundCloud player for Thinking'bout mine" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fon.soundcloud.com%2FkwKJc9oik8HoHRyu1I&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false" width="1" height="1" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;" frameborder="0" allow="autoplay"></iframe>
   </div>
 
-  <a class="stream-button" href="https://soundcloud.com/killian-yao-890615935/thinkingbout-mine?si=5d3136e44a0941d8b5b09093dabb93e8&amp;utm_source=clipboard&amp;utm_medium=text&amp;utm_campaign=social_sharing" target="_blank" rel="noopener">
+  <a class="stream-button" href="https://on.soundcloud.com/kwKJc9oik8HoHRyu1I" target="_blank" rel="noopener">
     STREAM
   </a>
 </section>
@@ -839,15 +839,16 @@ stack.addEventListener('touchend', event => {
 showImage(activeImage);
 </script>
 
+<script src="https://w.soundcloud.com/player/api.js"></script>
 <script>
 const player = document.querySelector('.audio-player');
 
-if (player) {
-  const audio = player.querySelector('audio');
+if (player && window.SC && window.SC.Widget) {
   const toggle = player.querySelector('.player-toggle');
   const progress = player.querySelector('.player-progress');
   const currentTime = player.querySelector('.current-time');
   const durationTime = player.querySelector('.duration-time');
+  const widgetIframe = player.querySelector('#soundcloud-widget');
 
   const formatTime = seconds => {
     if (!Number.isFinite(seconds)) {
@@ -859,63 +860,88 @@ if (player) {
     return `${minutes}:${remainingSeconds}`;
   };
 
-  const updateProgress = () => {
-    const percent = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+  const updateProgress = (current, duration) => {
+    const percent = duration ? (current / duration) * 100 : 0;
     progress.value = percent;
     progress.style.setProperty('--progress', `${percent}%`);
-    currentTime.textContent = formatTime(audio.currentTime);
+    currentTime.textContent = formatTime(current);
+    durationTime.textContent = formatTime(duration);
   };
 
+  const widget = widgetIframe ? SC.Widget(widgetIframe) : null;
+  let currentDurationMs = 0;
+
+  const setWidgetPosition = value => {
+    if (!widget || !currentDurationMs) return;
+    const seekMs = Math.round((value / 100) * currentDurationMs);
+    widget.seekTo(seekMs);
+  };
+
+  const onWidgetReady = () => {
+    widget.setVolume(100);
+    widget.getDuration(duration => {
+      currentDurationMs = duration || 0;
+      durationTime.textContent = formatTime(currentDurationMs / 1000);
+    });
+  };
+
+  if (widget) {
+    widget.bind(SC.Widget.Events.READY, onWidgetReady);
+
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      player.classList.add('is-playing');
+      toggle.setAttribute('aria-label', "Pause Thinking'bout mine");
+    });
+
+    widget.bind(SC.Widget.Events.PAUSE, () => {
+      player.classList.remove('is-playing');
+      toggle.setAttribute('aria-label', "Play Thinking'bout mine");
+    });
+
+    widget.bind(SC.Widget.Events.FINISH, () => {
+      player.classList.remove('is-playing');
+      toggle.setAttribute('aria-label', "Play Thinking'bout mine");
+      updateProgress(0, currentDurationMs / 1000);
+    });
+
+    widget.bind(SC.Widget.Events.PLAY_PROGRESS, data => {
+      if (!data || typeof data.currentPosition !== 'number') return;
+      updateProgress(data.currentPosition / 1000, currentDurationMs / 1000);
+    });
+  }
+
   toggle.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play().catch(() => {
-        player.classList.remove('is-playing');
-      });
-    } else {
-      audio.pause();
-    }
-  });
-
-  audio.addEventListener('play', () => {
-    player.classList.add('is-playing');
-    toggle.setAttribute('aria-label', "Pause Thinking'bout mine");
-  });
-
-  audio.addEventListener('pause', () => {
-    player.classList.remove('is-playing');
-    toggle.setAttribute('aria-label', "Play Thinking'bout mine");
-  });
-
-  audio.addEventListener('loadedmetadata', () => {
-    durationTime.textContent = formatTime(audio.duration);
-  });
-
-  audio.addEventListener('timeupdate', updateProgress);
-
-  audio.addEventListener('ended', () => {
-    audio.currentTime = 0;
-    updateProgress();
+    if (!widget) return;
+    widget.isPaused(isPaused => {
+      if (isPaused) {
+        widget.play();
+      } else {
+        widget.pause();
+      }
+    });
   });
 
   progress.addEventListener('input', () => {
-    if (audio.duration) {
-      audio.currentTime = (progress.value / 100) * audio.duration;
-    }
+    setWidgetPosition(Number(progress.value));
   });
 }
 </script>
 
 <script>
-window.addEventListener("load", function(){
-  const loader = document.getElementById("loader");
+const hideLoader = () => {
+  const loader = document.getElementById('loader');
+  if (!loader || loader.dataset.hidden) return;
+  loader.dataset.hidden = 'true';
+  loader.style.transition = 'opacity 0.4s ease';
+  loader.style.opacity = '0';
   setTimeout(() => {
-    loader.style.opacity = "0";
-    loader.style.transition = "1s";
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 1000);
-  }, 2000);
-});
+    loader.remove();
+  }, 500);
+};
+
+window.addEventListener('DOMContentLoaded', hideLoader);
+window.addEventListener('load', hideLoader);
+setTimeout(hideLoader, 4000);
 </script>
 
 </body>
