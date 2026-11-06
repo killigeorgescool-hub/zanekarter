@@ -86,6 +86,36 @@
       font-weight: 600;
     }
 
+    .quotes {
+      width: min(100%, 760px);
+      margin: 40px auto 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .quote-card {
+      margin: 0;
+      padding: 24px 28px;
+      border: 1px solid #e8e8e8;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 12px 36px rgba(17, 17, 17, 0.04);
+    }
+
+    .quote-card p {
+      margin: 0;
+      color: #222;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.7;
+    }
+
+    .quote-card footer {
+      margin-top: 14px;
+      color: #777;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
     .lock-panel {
       width: min(100%, 520px);
       margin: 36px auto 0;
@@ -435,6 +465,21 @@
       <h1>Consciousness</h1>
       <p class="subtitle">Welcome to Consciousness — a field of awareness, memory, and reflection. Every thought becomes a signal, every silence a story.</p>
     </header>
+
+    <section class="quotes" aria-label="Quotes on emotional dependency and addiction">
+      <blockquote class="quote-card">
+        <p>“Emotional dependency is a form of addiction where the other person becomes our drug, and their absence becomes our withdrawal.”</p>
+        <footer>— <cite>Robin Norwood</cite> (Author of <cite>Women Who Love Too Much</cite>)</footer>
+      </blockquote>
+      <blockquote class="quote-card">
+        <p>“Every addiction starts with pain and ends with pain.”</p>
+        <footer>— <cite>Gabor Maté</cite></footer>
+      </blockquote>
+      <blockquote class="quote-card">
+        <p>“To love is not to give yourself to another to the point of erasing yourself. That is dependency.”</p>
+        <footer>— <cite>Jacques Salomé</cite></footer>
+      </blockquote>
+    </section>
 
     <div class="lock-panel" aria-labelledby="lock-heading">
       <h2 id="lock-heading">Private access</h2>
