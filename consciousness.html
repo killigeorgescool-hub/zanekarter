@@ -16,6 +16,10 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -28,6 +32,7 @@
     }
 
     .page-shell {
+      width: 100%;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -60,9 +65,10 @@
     }
 
     h1 {
+      max-width: 100%;
       margin: 0;
-      font-size: clamp(2.8rem, 7vw, 5.2rem);
-      letter-spacing: 0.24em;
+      font-size: clamp(2rem, 6vw, 5.2rem);
+      letter-spacing: clamp(0.05em, 1vw, 0.24em);
       text-transform: uppercase;
       color: #111;
       text-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
@@ -270,6 +276,7 @@
 
     .memory-content {
       margin: 36px auto 0;
+      width: min(100%, 760px);
       max-width: 760px;
       opacity: 0;
       transform: translateY(14px);
@@ -412,6 +419,26 @@
       .brand-bar {
         flex-direction: column;
         gap: 14px;
+      }
+
+      h1 {
+        font-size: clamp(1.7rem, 8vw, 2.3rem);
+        letter-spacing: 0.06em;
+      }
+
+      .section-tabs {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .section-tabs button {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+      }
+
+      .quote-card {
+        padding: 20px;
       }
 
       .lock-panel {
