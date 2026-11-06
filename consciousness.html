@@ -86,16 +86,45 @@
       font-weight: 600;
     }
 
-    .content-section {
+    .section-tabs {
       width: min(100%, 760px);
-      margin: 40px auto 0;
+      margin: 32px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
     }
 
-    .content-section h2 {
-      margin: 0 0 20px;
-      font-size: 1.5rem;
-      letter-spacing: 0.16em;
+    .section-tabs button {
+      padding: 12px 20px;
+      border: 1px solid #dedede;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #555;
+      cursor: pointer;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .section-tabs button[aria-selected="true"] {
+      border-color: #111;
+      background: #111;
+      color: #fff;
+    }
+
+    .section-tabs button:focus-visible {
+      outline: 2px solid #7095d3;
+      outline-offset: 3px;
+    }
+
+    .content-section {
+      width: min(100%, 760px);
+      margin: 28px auto 0;
+    }
+
+    .content-section[hidden] {
+      display: none;
     }
 
     .quotes {
@@ -476,8 +505,12 @@
       <p class="subtitle">Welcome to Consciousness — a field of awareness, memory, and reflection. Every thought becomes a signal, every silence a story.</p>
     </header>
 
-    <section class="content-section" aria-labelledby="quotes-heading">
-      <h2 id="quotes-heading">Quote</h2>
+    <div class="section-tabs" role="tablist" aria-label="Consciousness sections">
+      <button id="quotes-tab" type="button" role="tab" aria-selected="true" aria-controls="quotes-panel" tabindex="0">Quote</button>
+      <button id="other-releases-tab" type="button" role="tab" aria-selected="false" aria-controls="other-releases-panel" tabindex="-1">Other releases</button>
+    </div>
+
+    <section class="content-section" id="quotes-panel" role="tabpanel" aria-labelledby="quotes-tab">
       <div class="quotes">
         <blockquote class="quote-card">
           <p>“Emotional dependency is a form of addiction where the other person becomes our drug, and their absence becomes our withdrawal.”</p>
@@ -494,8 +527,7 @@
       </div>
     </section>
 
-    <section class="content-section" aria-labelledby="other-releases-heading">
-      <h2 id="other-releases-heading">Other releases</h2>
+    <section class="content-section" id="other-releases-panel" role="tabpanel" aria-labelledby="other-releases-tab" hidden>
     </section>
 
     <div class="lock-panel" aria-labelledby="lock-heading">
@@ -532,6 +564,35 @@
   </div>
 
   <script>
+    const sectionTabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const sectionPanels = sectionTabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
+
+    const selectSection = (selectedTab) => {
+      sectionTabs.forEach((tab, index) => {
+        const isSelected = tab === selectedTab;
+        tab.setAttribute('aria-selected', String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+        sectionPanels[index].hidden = !isSelected;
+      });
+    };
+
+    sectionTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectSection(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % sectionTabs.length;
+        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + sectionTabs.length) % sectionTabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = sectionTabs.length - 1;
+        if (nextIndex === undefined) return;
+
+        event.preventDefault();
+        const nextTab = sectionTabs[nextIndex];
+        selectSection(nextTab);
+        nextTab.focus();
+      });
+    });
+
     const correctPassword = 'PureHeart';
     const passwordInput = document.getElementById('password-input');
     const unlockButton = document.getElementById('unlock-button');
