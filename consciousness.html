@@ -86,9 +86,19 @@
       font-weight: 600;
     }
 
-    .quotes {
+    .content-section {
       width: min(100%, 760px);
       margin: 40px auto 0;
+    }
+
+    .content-section h2 {
+      margin: 0 0 20px;
+      font-size: 1.5rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .quotes {
       display: grid;
       gap: 18px;
     }
@@ -466,19 +476,26 @@
       <p class="subtitle">Welcome to Consciousness — a field of awareness, memory, and reflection. Every thought becomes a signal, every silence a story.</p>
     </header>
 
-    <section class="quotes" aria-label="Quotes on emotional dependency and addiction">
-      <blockquote class="quote-card">
-        <p>“Emotional dependency is a form of addiction where the other person becomes our drug, and their absence becomes our withdrawal.”</p>
-        <footer>— <cite>Robin Norwood</cite> (Author of <cite>Women Who Love Too Much</cite>)</footer>
-      </blockquote>
-      <blockquote class="quote-card">
-        <p>“Every addiction starts with pain and ends with pain.”</p>
-        <footer>— <cite>Gabor Maté</cite></footer>
-      </blockquote>
-      <blockquote class="quote-card">
-        <p>“To love is not to give yourself to another to the point of erasing yourself. That is dependency.”</p>
-        <footer>— <cite>Jacques Salomé</cite></footer>
-      </blockquote>
+    <section class="content-section" aria-labelledby="quotes-heading">
+      <h2 id="quotes-heading">Quote</h2>
+      <div class="quotes">
+        <blockquote class="quote-card">
+          <p>“Emotional dependency is a form of addiction where the other person becomes our drug, and their absence becomes our withdrawal.”</p>
+          <footer>— <cite>Robin Norwood</cite> (Author of <cite>Women Who Love Too Much</cite>)</footer>
+        </blockquote>
+        <blockquote class="quote-card">
+          <p>“Every addiction starts with pain and ends with pain.”</p>
+          <footer>— <cite>Gabor Maté</cite></footer>
+        </blockquote>
+        <blockquote class="quote-card">
+          <p>“To love is not to give yourself to another to the point of erasing yourself. That is dependency.”</p>
+          <footer>— <cite>Jacques Salomé</cite></footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="other-releases-heading">
+      <h2 id="other-releases-heading">Other releases</h2>
     </section>
 
     <div class="lock-panel" aria-labelledby="lock-heading">
