@@ -816,10 +816,10 @@ a:hover {
   <div class="image-carousel" aria-label="Nouvelle galerie photo">
     <button class="image-nav prev" type="button" aria-label="Image precedente">&lsaquo;</button>
     <div class="image-stack">
-      <img class="protected-image is-active" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1793809881/IMG_0045_ck6ngd.jpg" alt="Zane Karter visual 1" draggable="false">
-      <img class="protected-image is-next" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1793809882/IMG_0043_bvmxj4.jpg" alt="Zane Karter visual 2" draggable="false">
-      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1793809892/IMG_0041_lf1nuj.jpg" alt="Zane Karter visual 3" draggable="false">
-      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1793809888/IMG_0040_d3e54j.jpg" alt="Zane Karter visual 4" draggable="false">
+      <img class="protected-image is-active" src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1793809881/IMG_0045_ck6ngd.jpg" alt="Zane Karter visual 1" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image is-next" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1793809882/IMG_0043_bvmxj4.jpg" alt="Zane Karter visual 2" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1793809892/IMG_0041_lf1nuj.jpg" alt="Zane Karter visual 3" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1793809888/IMG_0040_d3e54j.jpg" alt="Zane Karter visual 4" draggable="false" loading="lazy" decoding="async">
     </div>
     <button class="image-nav next" type="button" aria-label="Image suivante">&rsaquo;</button>
     <div class="image-dots" aria-label="Choisir une image"></div>
@@ -828,11 +828,11 @@ a:hover {
   <div class="image-carousel" aria-label="Galerie photo">
     <button class="image-nav prev" type="button" aria-label="Image precedente">&lsaquo;</button>
     <div class="image-stack">
-      <img class="protected-image is-active" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538709/dfuns_2026-06-21_143315682CA390D78A_g1taxd.jpg" alt="Zane Karter visual 1" draggable="false">
-      <img class="protected-image is-next" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538714/dfuns_2026-06-21_143637AD545152EE65_t791lu.jpg" alt="Zane Karter visual 2" draggable="false">
-      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538361/dfuns_2026-06-21_1432475455DFDAFDD9_rvgxhu.jpg" alt="Zane Karter visual 3" draggable="false">
-      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538704/dfuns_2026-06-21_143638ED9F348B0889_gzc6q2.jpg" alt="Zane Karter visual 4" draggable="false">
-      <img class="protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782538713/dfuns_2026-06-21_1433159F52A171454D_lfckpj.jpg" alt="Zane Karter visual 5" draggable="false">
+      <img class="protected-image is-active" src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1782538709/dfuns_2026-06-21_143315682CA390D78A_g1taxd.jpg" alt="Zane Karter visual 1" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image is-next" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1782538714/dfuns_2026-06-21_143637AD545152EE65_t791lu.jpg" alt="Zane Karter visual 2" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1782538361/dfuns_2026-06-21_1432475455DFDAFDD9_rvgxhu.jpg" alt="Zane Karter visual 3" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1782538704/dfuns_2026-06-21_143638ED9F348B0889_gzc6q2.jpg" alt="Zane Karter visual 4" draggable="false" loading="lazy" decoding="async">
+      <img class="protected-image" data-src="https://res.cloudinary.com/deuwnhuwf/image/upload/f_auto,q_auto,w_860,c_limit/v1782538713/dfuns_2026-06-21_1433159F52A171454D_lfckpj.jpg" alt="Zane Karter visual 5" draggable="false" loading="lazy" decoding="async">
     </div>
     <button class="image-nav next" type="button" aria-label="Image suivante">&rsaquo;</button>
     <div class="image-dots" aria-label="Choisir une image"></div>
@@ -928,8 +928,18 @@ document.querySelectorAll('.image-carousel').forEach(carousel => {
   let activeImage = 0;
   let touchStartX = 0;
 
+  function loadImage(image) {
+    if (!image.hasAttribute('src') && image.dataset.src) {
+      image.src = image.dataset.src;
+      delete image.dataset.src;
+    }
+  }
+
   function showImage(index, direction = 1) {
     activeImage = (index + images.length) % images.length;
+    loadImage(images[activeImage]);
+    loadImage(images[(activeImage - 1 + images.length) % images.length]);
+    loadImage(images[(activeImage + 1) % images.length]);
 
     images.forEach((image, imageIndex) => {
       image.classList.remove('is-active', 'is-prev', 'is-next');
