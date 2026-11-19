@@ -342,6 +342,311 @@ h2 {
   background:#fff;
 }
 
+.spotify-card {
+  width:min(100%, 680px);
+  margin:28px auto 0;
+  padding:18px;
+  border:1px solid rgba(29,185,84,0.22);
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(29,185,84,0.12), rgba(255,255,255,0.035));
+  box-shadow:0 24px 70px rgba(0,0,0,0.42);
+  overflow:hidden;
+  text-align:left;
+}
+
+.spotify-card-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 2px 14px;
+}
+
+.spotify-mark {
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  background:#1DB954;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  font-weight:600;
+  box-shadow:0 8px 24px rgba(29,185,84,0.22);
+}
+
+.spotify-card-head div:last-child {
+  min-width:0;
+}
+
+.spotify-card h3 {
+  margin:0 0 2px;
+  font-size:18px;
+}
+
+.spotify-card-head p {
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.spotify-card iframe {
+  width:100%;
+  height:152px;
+  display:block;
+  border:0;
+  border-radius:12px;
+  background:#121212;
+}
+
+.spotify-button {
+  margin:14px auto 0;
+  min-height:44px;
+  padding:12px 22px;
+  display:flex;
+  width:max-content;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border-radius:999px;
+  border:1px solid #1DB954;
+  background:#1DB954;
+  color:#05120a;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  transition:transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.spotify-button:hover {
+  opacity:1;
+  transform:translateY(-2px);
+  background:#29d967;
+  box-shadow:0 10px 28px rgba(29,185,84,0.22);
+}
+
+.apple-card {
+  width:min(100%, 680px);
+  margin:18px auto 0;
+  padding:18px;
+  border:1px solid rgba(250,35,59,0.24);
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(250,35,59,0.10), rgba(255,255,255,0.035));
+  box-shadow:0 24px 70px rgba(0,0,0,0.42);
+  overflow:hidden;
+  text-align:left;
+}
+
+.apple-card-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 2px 14px;
+}
+
+.apple-mark {
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  background:linear-gradient(145deg, #fc3c44, #fa233b);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Cinzel', serif;
+  font-size:21px;
+  font-weight:700;
+  box-shadow:0 8px 24px rgba(250,35,59,0.20);
+}
+
+.apple-card h3 {
+  margin:0 0 2px;
+  font-size:18px;
+}
+
+.apple-card-head p {
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.apple-card iframe {
+  width:100%;
+  height:175px;
+  display:block;
+  border:0;
+  border-radius:12px;
+  background:#121212;
+}
+
+.apple-button {
+  margin:14px auto 0;
+  min-height:44px;
+  padding:12px 22px;
+  display:flex;
+  width:max-content;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border-radius:999px;
+  border:1px solid #fa233b;
+  background:#fa233b;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  transition:transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.apple-button:hover {
+  opacity:1;
+  transform:translateY(-2px);
+  background:#ff4556;
+  box-shadow:0 10px 28px rgba(250,35,59,0.22);
+}
+
+.bandcamp-card {
+  width:min(100%, 680px);
+  margin:28px auto 18px;
+  padding:18px;
+  border:1px solid rgba(97,193,215,0.24);
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(97,193,215,0.12), rgba(255,255,255,0.035));
+  box-shadow:0 24px 70px rgba(0,0,0,0.42);
+  overflow:hidden;
+  text-align:left;
+}
+
+.bandcamp-card-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 2px 16px;
+}
+
+.bandcamp-mark {
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  background:#61c1d7;
+  color:#071218;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-1px;
+  box-shadow:0 8px 24px rgba(97,193,215,0.20);
+}
+
+.bandcamp-card h3 {
+  margin:0 0 2px;
+  font-size:18px;
+}
+
+.bandcamp-card-head p {
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.bandcamp-content {
+  display:grid;
+  grid-template-columns:148px 1fr;
+  gap:18px;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.bandcamp-cover {
+  width:148px;
+  height:148px;
+  display:block;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.14);
+  box-shadow:0 16px 38px rgba(0,0,0,0.38);
+  user-select:none;
+  -webkit-user-drag:none;
+  -webkit-touch-callout:none;
+}
+
+.bandcamp-details {
+  min-width:0;
+  text-align:left;
+}
+
+.bandcamp-details h3 {
+  margin:0 0 6px;
+  font-size:clamp(1.25rem, 4vw, 1.55rem);
+}
+
+.bandcamp-details p {
+  margin:0;
+  color:#c8c8c8;
+}
+
+.bandcamp-button {
+  margin:0 auto;
+  min-height:44px;
+  padding:12px 24px;
+  display:flex;
+  width:max-content;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border-radius:999px;
+  border:1px solid #61c1d7;
+  background:#61c1d7;
+  color:#071218;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  transition:transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bandcamp-button:hover {
+  opacity:1;
+  transform:translateY(-2px);
+  background:#82d4e7;
+  box-shadow:0 10px 28px rgba(97,193,215,0.22);
+}
+
+.album-preorder-card {
+  width:min(100%, 680px);
+  margin:28px auto 18px;
+  padding:18px;
+  border:1px solid rgba(112,149,211,0.30);
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(112,149,211,0.14), rgba(255,255,255,0.035));
+  box-shadow:0 24px 70px rgba(0,0,0,0.42);
+  overflow:hidden;
+  text-align:left;
+}
+
+.album-preorder-card .bandcamp-content {
+  margin-bottom:16px;
+}
+
+.album-preorder-card .bandcamp-cover {
+  border-color:rgba(166,194,237,0.26);
+}
+
+.preorder-label {
+  margin:0 0 6px;
+  color:#a6c2ed;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
 @keyframes barPulse {
   0%, 100% { transform:scaleY(0.45); opacity:0.45; }
   50% { transform:scaleY(1); opacity:1; }
@@ -618,6 +923,59 @@ h2 {
     justify-items:center;
   }
 
+  .spotify-card {
+    max-width:380px;
+    padding:14px;
+  }
+
+  .apple-card {
+    max-width:380px;
+    padding:14px;
+  }
+
+  .bandcamp-card {
+    max-width:380px;
+    margin:28px auto 14px;
+    padding:14px;
+  }
+
+  .album-preorder-card {
+    max-width:380px;
+    margin:28px auto 14px;
+    padding:14px;
+  }
+
+  .bandcamp-content {
+    grid-template-columns:1fr;
+    justify-items:center;
+  }
+
+  .bandcamp-cover {
+    width:min(240px, 100%);
+    height:auto;
+    aspect-ratio:1;
+  }
+
+  .bandcamp-details {
+    width:100%;
+    text-align:center;
+  }
+
+  .spotify-card-head {
+    margin-bottom:12px;
+  }
+
+  .apple-card-head,
+  .bandcamp-card-head {
+    margin-bottom:12px;
+  }
+
+  .spotify-button,
+  .apple-button,
+  .bandcamp-button {
+    width:100%;
+  }
+
   .album-mark {
     margin:auto;
     width:76px;
@@ -873,6 +1231,71 @@ a:hover {
 
 <section id="music" class="fade">
   <h2>Music</h2>
+
+  <div class="album-preorder-card">
+    <div class="bandcamp-content">
+      <img class="bandcamp-cover protected-image" src="https://f4.bcbits.com/img/a0689026253_10.jpg" alt="More than Addicted album cover" draggable="false" loading="lazy">
+      <div class="bandcamp-details">
+        <p class="preorder-label">Pre-order</p>
+        <h3>More than Addicted</h3>
+        <p>Zane Karter · Album · 11 tracks</p>
+      </div>
+    </div>
+    <a class="bandcamp-button" href="https://zanekarter.bandcamp.com/album/more-than-addicted" target="_blank" rel="noopener">
+      PRE-ORDER ON BANDCAMP
+    </a>
+  </div>
+
+  <div class="bandcamp-card">
+    <div class="bandcamp-content">
+      <img class="bandcamp-cover protected-image" src="https://f4.bcbits.com/img/a2571311586_10.jpg" alt="Addicted cover art" draggable="false" loading="lazy">
+      <div class="bandcamp-details">
+        <h3>Addicted</h3>
+        <p>Zane Karter · Digital track</p>
+      </div>
+    </div>
+    <a class="bandcamp-button" href="https://zanekarter.bandcamp.com/track/addicted-4" target="_blank" rel="noopener">
+      BUY ON BANDCAMP
+    </a>
+  </div>
+
+  <div class="spotify-card">
+    <div class="spotify-card-head">
+      <div class="spotify-mark" aria-hidden="true">&#9835;</div>
+      <div>
+        <h3>Addicted</h3>
+        <p>Zane Karter · Single</p>
+      </div>
+    </div>
+    <iframe
+      title="Listen to Addicted by Zane Karter on Spotify"
+      src="https://open.spotify.com/embed/track/0IiJNnHFZXFk1N2ZYLIXI6?utm_source=generator&amp;theme=0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+    <a class="spotify-button" href="https://open.spotify.com/intl-fr/track/0IiJNnHFZXFk1N2ZYLIXI6?si=eef50ac595514190&amp;nd=1&amp;dlsi=2f54e7df624f4c15&amp;autoplay_ok=1" target="_blank" rel="noopener">
+      LISTEN ON SPOTIFY
+    </a>
+  </div>
+
+  <div class="apple-card">
+    <div class="apple-card-head">
+      <div class="apple-mark" aria-hidden="true">&#9834;</div>
+      <div>
+        <h3>Addicted</h3>
+        <p>Zane Karter · Single</p>
+      </div>
+    </div>
+    <iframe
+      title="Listen to Addicted by Zane Karter on Apple Music"
+      src="https://embed.music.apple.com/us/song/addicted/6836634690"
+      allow="autoplay *; encrypted-media *;"
+      loading="lazy">
+    </iframe>
+    <a class="apple-button" href="https://music.apple.com/us/song/addicted/6836634690" target="_blank" rel="noopener">
+      LISTEN ON APPLE MUSIC
+    </a>
+  </div>
 
   <div class="audio-player" data-soundcloud-url="https://on.soundcloud.com/kwKJc9oik8HoHRyu1I">
     <img class="album-mark protected-image" src="https://res.cloudinary.com/deuwnhuwf/image/upload/v1782571316/soundcloud_cover_pumudw.png" alt="Thinking'bout mine cover" draggable="false">
