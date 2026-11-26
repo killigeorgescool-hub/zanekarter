@@ -669,6 +669,61 @@ h2 {
   -webkit-text-fill-color:transparent;
 }
 
+.gift-icons {
+  width:min(100%, 420px);
+  margin:24px auto 4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(22px, 5vw, 40px);
+}
+
+.gift-link {
+  display:flex;
+  flex:1;
+  max-width:148px;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  color:#b9c9df;
+  text-decoration:none;
+  font-size:12px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:color 0.2s ease, transform 0.2s ease;
+}
+
+.gift-link:hover {
+  color:#fff;
+  transform:translateY(-3px);
+}
+
+.gift-icon {
+  width:clamp(108px, 16vw, 148px);
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(166,194,237,0.16);
+  border-radius:50%;
+  background:rgba(255,255,255,0.025);
+}
+
+.gift-icon svg {
+  width:62%;
+  height:62%;
+  fill:none;
+  stroke:#a6c2ed;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.gift-link:focus-visible {
+  outline:2px solid #a6c2ed;
+  outline-offset:6px;
+  border-radius:8px;
+}
+
 .image-carousel {
   width:min(100%, 760px);
   margin:40px auto 0;
@@ -877,6 +932,15 @@ h2 {
 
   section {
     padding:70px 16px;
+  }
+
+  .gift-icons {
+    gap:14px;
+    margin-top:26px;
+  }
+
+  .gift-icon {
+    width:min(38vw, 136px);
   }
 
   .image-stack {
@@ -1171,6 +1235,30 @@ a:hover {
 
 <section id="images" class="fade">
   <h2>Images</h2>
+  <div class="gift-icons">
+    <a class="gift-link" href="https://www.dropbox.com/scl/fo/ltcxpiyj3xw07gb868i9w/ALFXyUxPsq7RpcoSo_x38iw?rlkey=4vy4imo9gcgt5spgdhnbbpcgy&amp;st=7gvnamqc&amp;dl=0" target="_blank" rel="noopener noreferrer" aria-label="Open Desktop gift on Dropbox">
+      <span class="gift-icon">
+      <svg viewBox="0 0 64 64" role="img">
+        <path d="M11 29h42v25H11z"/>
+        <path d="M8 21h48v10H8zM32 21v33"/>
+        <path d="M32 21H21.5a6.5 6.5 0 1 1 6.5-6.5c0 3.6 4 6.5 4 6.5Z"/>
+        <path d="M32 21h10.5a6.5 6.5 0 1 0-6.5-6.5c0 3.6-4 6.5-4 6.5Z"/>
+      </svg>
+      </span>
+      <span>Desktop gift</span>
+    </a>
+    <a class="gift-link" href="https://www.dropbox.com/scl/fo/s393g746oegezxrmdd9xn/AI8OXVmKYvU4jMRhGO4UlNk?rlkey=kxbuw8hho49ocech6clv3t7p6&amp;st=1gc8e9fm&amp;dl=0" target="_blank" rel="noopener noreferrer" aria-label="Open Mobile gift on Dropbox">
+      <span class="gift-icon">
+      <svg viewBox="0 0 64 64" role="img">
+        <path d="M11 29h42v25H11z"/>
+        <path d="M8 21h48v10H8zM32 21v33"/>
+        <path d="M32 21H21.5a6.5 6.5 0 1 1 6.5-6.5c0 3.6 4 6.5 4 6.5Z"/>
+        <path d="M32 21h10.5a6.5 6.5 0 1 0-6.5-6.5c0 3.6-4 6.5-4 6.5Z"/>
+      </svg>
+      </span>
+      <span>Mobile gift</span>
+    </a>
+  </div>
   <div class="image-carousel" aria-label="Nouvelle galerie photo">
     <button class="image-nav prev" type="button" aria-label="Image precedente">&lsaquo;</button>
     <div class="image-stack">
